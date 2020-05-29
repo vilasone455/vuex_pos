@@ -58,7 +58,7 @@
 
 <script>
 export default {
-  name: 'test',
+  name: 'header',
   props: {
     msg: String
   }
