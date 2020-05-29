@@ -1,28 +1,53 @@
+
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div>
+      <test></test>
+      <section class="section-content padding-y-sm bg-default">
+        <div class="container-fluid">
+          <div class="row">
+            <products></products>
+            <carts></carts>
+          </div>
+        </div>
+      </section>
+    </div>
   </div>
 </template>
 
+
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import test from "./components/test";
+import products from "./components/products";
+import carts from "./components/carts";
 
 export default {
-  name: 'App',
+  name: "App",
+
   components: {
-    HelloWorld
+    test,
+    products,
+    carts
   }
-}
+};
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+@import "./assets/css/bootstrap.css";
+@import "./assets/css/ui.css";
+@import "./assets/css/OverlayScrollbars.css";
+
+.avatar {
+  vertical-align: middle;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+}
+.bg-default,
+.btn-default {
+  background-color: #f2f3f8;
+}
+.btn-error {
+  color: #ef5f5f;
 }
 </style>
