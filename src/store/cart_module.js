@@ -1,3 +1,5 @@
+import { shopapi } from '../api'
+
 const cartModule = {
     namespaced: true,
     state: {
@@ -6,6 +8,7 @@ const cartModule = {
         discount : 0,
         tax : 4,
       },
+      openCalculator : false,
       cart_i : 1,
       carts: []
     },
@@ -64,11 +67,16 @@ const cartModule = {
           acc += obj.pro_price * obj.qty;
           return acc  
         },0)
+      },
+
+      isCharge(state){
+        return state.openCalculator
       }
 
     },
 
     actions: {
+
           addtocart:(context, datas)=> {
             console.log("send data : " + JSON.stringify(datas)) 
             if(!context.getters.isHaveProductInCart(datas)){
@@ -77,14 +85,42 @@ const cartModule = {
               console.log("no have")
             }
           },
+
           addqty ({ commit }, datas) {
             commit('ChangeQty', datas)
           },
+
           removeitem({ commit }, datas) {
             commit('RemoveItem', datas)
           },
+
           clear_cart:(context)=>{
             context.commit("clear_cart")
+          },
+
+          charge:(context)=>{
+            context.state.openCalculator = true;
+            console.log("charge action : " + context.state.openCalculator)
+          },
+
+          async checkout(context , value){
+
+            var bill_data = {};
+            bill_data.sell_list = context.getters.getCart;
+            bill_data.sell_id = 1000; //hardcode
+            bill_data.bill_status = "paid";
+            bill_data.pay_money = value;
+            bill_data.bill_date = new Date().getTime(); 
+
+            bill_data.sell_list.forEach(function(v){ delete v.pro_name ; delete v.pro_img });
+
+            var res = await shopapi.checkout(bill_data);
+
+            console.log(JSON.stringify(res));
+
+            context.commit("clear_cart");
+            //if print_confrim =>window.print 
+
           }
     }
 

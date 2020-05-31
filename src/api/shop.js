@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 class ShopProvider extends HttpRequest{
 
     checkout(data){
-
+        
         Swal.fire(
             'Check out!',
             'Loading!',

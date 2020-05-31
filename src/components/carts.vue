@@ -81,7 +81,7 @@
           </a>
         </div>
         <div class="col-md-6">
-          <a href="#" class="btn btn-primary btn-lg btn-block">
+          <a href="#" class="btn btn-primary btn-lg btn-block" @click="cal_open=true">
             <i class="fa fa-shopping-bag"></i>
             Charge
           </a>
@@ -89,11 +89,14 @@
       </div>
     </div>
     <!-- box.// -->
+      <calculator :isOpen="cal_open" @onSaveData="checkouts" @onClose="cal_open=false"></calculator>
   </div>
+
 </template>
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import calculator from "./calculator";
 
 export default {
   name: "carts",
@@ -101,20 +104,35 @@ export default {
     msg: String,
     cart_list: Array
   },
+  data: function () {
+    return {
+      cal_open: false
+    }
+  },
+  components :{
+    calculator
+  },
   computed: {
     ...mapGetters("Cart",["getSumCart" ,"getCart" , "getTrueTotalPrice" , "getCartData"])
   },
   methods: {
-    ...mapActions("Cart", ["removeitem" ,"clear_cart"]),
+    ...mapActions("Cart", ["removeitem" ,"clear_cart" , "checkout"]),
+
     removecart: function(index) {
       this.removeitem(index);
     },
+
     ajusQty: function(index, v) {
       if (this.getCart[index].qty == 1 && v == -1) {
         this.removecart(index);
       } else {
         this.getCart[index].qty += v;
       }
+    },
+
+    checkouts : function(value){
+      console.log(value)
+      this.checkout(value);
     }
   }
 };
@@ -129,6 +147,8 @@ export default {
 .btn-error {
   color: #ef5f5f;
 }
+
+
 
 @import "../assets/css/bootstrap.css";
 @import "../assets/css/ui.css";

@@ -1,7 +1,7 @@
 
 <template >
 
-<div>
+<div class="print">
 
 
 </div>
@@ -22,5 +22,19 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+
+.print {
+  display: none;
+}
+
+@media print 
+{
+.print{display: block;}
+#app{display: none;}
+}
+
+</style>
 
 

@@ -2,7 +2,7 @@
 <template>
   <div id="app">
     <div>
-      <test></test>
+      <headers></headers>
       <section class="section-content padding-y-sm bg-default">
         <div class="container-fluid">
           <div class="row">
@@ -12,22 +12,25 @@
         </div>
       </section>
     </div>
+      <print></print>
   </div>
+  
 </template>
 
-
 <script>
-import test from "./components/test";
+import headers from "./components/headers";
 import products from "./components/products";
 import carts from "./components/carts";
+import print from "./components/print_cart";
 
 export default {
   name: "App",
 
   components: {
-    test,
+    headers,
     products,
-    carts
+    carts,
+    print
   }
 };
 </script>
@@ -36,6 +39,8 @@ export default {
 @import "./assets/css/bootstrap.css";
 @import "./assets/css/ui.css";
 @import "./assets/css/OverlayScrollbars.css";
+
+
 
 .avatar {
   vertical-align: middle;
